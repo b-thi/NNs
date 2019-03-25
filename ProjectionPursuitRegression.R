@@ -14,7 +14,7 @@ g_v <- function(x1, x2) {
 
 ### generating data
 
-# Initializing
+# Initializing variables
 x1 = seq(0, 10, 0.01)
 x2 = seq(0, 10, 0.01)
 gv_matrix = matrix(nrow = length(x1), ncol = length(x2))
