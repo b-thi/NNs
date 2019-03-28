@@ -7,11 +7,11 @@ library(ggplot2)
 
 ## Loading data
 fashion_mnist <- dataset_fashion_mnist()
-
+str(fashion_mnist)
 ## Organizing data
 c(train_images, train_labels) %<-% fashion_mnist$train
 c(test_images, test_labels) %<-% fashion_mnist$test
-
+str(train_images)
 ## Names for labels in a vector
 class_names = c('T-shirt/top',
                 'Trouser',
