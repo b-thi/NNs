@@ -72,7 +72,7 @@ iceberg_nn %>%
 
 ## Adding loss function and optimizer
 iceberg_nn %>% compile(
-  optimizer = optimizer_adam(lr = 0.001), # Using stochastic gradient descent as backprop method
+  optimizer = "sgd", # Using stochastic gradient descent as backprop method
   loss = 'binary_crossentropy', # Using cross-entropy as loss evaluator
   metrics = c('accuracy') # Looking at accuracy
 )
