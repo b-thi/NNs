@@ -72,7 +72,7 @@ iceberg_nn %>%
 
 ## Adding loss function and optimizer
 iceberg_nn %>% compile(
-  optimizer = 'sgd', # Using stochastic gradient descent as backprop method
+  optimizer = optimizer_adam(lr = 0.001), # Using stochastic gradient descent as backprop method
   loss = 'binary_crossentropy', # Using cross-entropy as loss evaluator
   metrics = c('accuracy') # Looking at accuracy
 )
@@ -82,7 +82,8 @@ iceberg_nn %>% fit(train_iceberg, train_truth, epochs = 150)
 
 ## Seeing the accuracy
 score <- iceberg_nn %>% evaluate(test_iceberg, test_truth)
+# Alternative: predictions_nn <-  mean(round(predict(iceberg_nn, test_iceberg)) == test_truth)
+paste("Test Accuracy (NN):", score$acc)
 
-cat('Test loss:', score$loss, "\n")
-cat('Test accuracy:', score$acc, "\n")
+
 

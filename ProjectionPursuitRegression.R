@@ -31,3 +31,16 @@ ppr_ex %>%
   plot_ly(z = ~gv_matrix) %>% 
   add_surface()
 
+
+
+test1 = rnorm(10)
+mean(test1)
+test2 = rnorm(10)
+mean(test2)
+test3 = test1 + test2
+mean(test3)
+mean(test1 + test2)
+
+5*0.45
+6*0.45
+2.7 - 2.25
