@@ -16,12 +16,12 @@ head(gaussian_df)
 
 ## Activation Function
 sigmoid <- function(x) {
-  return(1.0 / (1.0 + exp(-x)))
+  return(1.0/(1.0 + exp(-x)))
 }
 
 ## Derivative of the activation
 sigmoid_deriv <- function(x) {
-  return(x * (1.0 - x))
+  return(x*(1.0 - x))
 }
 
 ## Loss Function
