@@ -80,10 +80,11 @@ grad_descent <- function(neural_net){
   deriv_bias1 <- 2*(neural_net$y - neural_net$output)*sigmoid_deriv(neural_net$output)*layer_weights_2*sigmoid_deriv(neural_net$layer1)
   
   # Weight update using derivative
-  neural_net$layer_weights_1 <- neural_net$layer_weights_1 + deriv_weights1
-  neural_net$layer_weights_2 <- neural_net$layer_weights_2 + deriv_weights2
-  neural_net$layer_bias_1 <- neural_net$layer_bias_1 + deriv_bias1
-  neural_net$layer_bias_2 <- neural_net$layer_bias_2 + deriv_bias2
+  learn_rate = 1
+  neural_net$layer_weights_1 <- neural_net$layer_weights_1 + learn_rate*deriv_weights1
+  neural_net$layer_weights_2 <- neural_net$layer_weights_2 + learn_rate*deriv_weights2
+  neural_net$layer_bias_1 <- neural_net$layer_bias_1 + learn_rate*deriv_bias1
+  neural_net$layer_bias_2 <- neural_net$layer_bias_2 + learn_rate*deriv_bias2
   
   # Returning updated information
   return(neural_net)
@@ -117,6 +118,10 @@ for (i in 1:epoch_num) {
 mean(round(neuralnet_info$output) == gaussian_df$resp)
 
 ## Plotting Loss
+
+## I lied, one library
+library(tidyverse)
+
 lossData %>% 
   ggplot(aes(x = epoch, y = MSE)) + 
   geom_line(size = 1.25, color = "red") +
