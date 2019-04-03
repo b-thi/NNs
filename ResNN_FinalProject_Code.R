@@ -65,7 +65,7 @@ input_CNN_residual = input_CNN %>%
   layer_activation_elu()
 
 input_CNN_residual = layer_add(list(input_CNN_residual,input_CNN))
-?layer_activation_elu
+
 # ## second residual
 input_CNN_residual = input_CNN_residual %>%
   layer_batch_normalization(momentum = 0.99) %>%
@@ -78,7 +78,7 @@ input_CNN_residual = input_CNN_residual %>%
   layer_activation_elu()
 
 input_CNN_residual = layer_add(list(input_CNN_residual,input_CNN))
-?layer_conv_2d
+
 ## final CNN
 top_CNN = input_CNN_residual %>%
   layer_conv_2d(128, kernel_size = kernel_size,padding = "same") %>%
