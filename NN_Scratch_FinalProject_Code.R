@@ -4,7 +4,7 @@
 # none :3
 
 ### Setting seed
-set.seed(50)
+set.seed(25)
 
 ## Defining data frame
 x <- rnorm(100)
@@ -75,11 +75,19 @@ grad_descent <- function(neural_net){
   deriv_weights1 <- deriv_weights1*sigmoid_deriv(neural_net$layer1)
   deriv_weights1 <- neural_net$input*deriv_weights1
   
+  ## Now need to do bias derivatives
+  deriv_bias2 <- 2*(neural_net$y - neural_net$output)*sigmoid_deriv(neural_net$output)
+  deriv_bias1 <- 2*(neural_net$y - neural_net$output)*sigmoid_deriv(neural_net$output)*layer_weights_2*sigmoid_deriv(neural_net$layer1)
+  
   # Weight update using derivative
   neural_net$layer_weights_1 <- neural_net$layer_weights_1 + deriv_weights1
   neural_net$layer_weights_2 <- neural_net$layer_weights_2 + deriv_weights2
+  neural_net$layer_bias_1 <- neural_net$layer_bias_1 + deriv_bias1
+  neural_net$layer_bias_2 <- neural_net$layer_bias_2 + deriv_bias2
   
+  # Returning updated information
   return(neural_net)
+  
 }
 
 ## Error Rate after no iterations
