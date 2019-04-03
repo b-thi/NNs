@@ -1,10 +1,10 @@
 ## Final Project NN From Scratch
 
-### libraries
-library(tidyverse)
+### Libraries
+# none :3
 
 ### Setting seed
-set.seed(5)
+set.seed(50)
 
 ## Defining data frame
 x <- rnorm(100)
@@ -47,10 +47,15 @@ neuralnet_info <- list(
 )
 
 ## Forward pass
-feedforward <- function(neural_net) {
+forward_pass <- function(neural_net) {
   
-  neural_net$layer1 <- c(sigmoid(neural_net$input * neural_net$layer_weights_1 + layer_bias_1))
-  neural_net$output <- c(sigmoid(neural_net$layer1 * neural_net$layer_weights_2 + layer_bias_2))
+  # Layer 1 activations
+  neural_net$layer1 <- c(sigmoid(neural_net$input * neural_net$layer_weights_1 + 
+                                   layer_bias_1))
+  
+  # Output activations
+  neural_net$output <- c(sigmoid(neural_net$layer1 * neural_net$layer_weights_2 + 
+                                   layer_bias_2))
   
   return(neural_net)
 }
@@ -58,7 +63,8 @@ feedforward <- function(neural_net) {
 ## Backpropagation
 grad_descent <- function(neural_net){
   
-  ## Easier derivative first 
+  ## Easier derivative first
+  # weights closer to the output layer
   deriv_weights2 <- (
     neural_net$layer1*(2*(neural_net$y - neural_net$output)*sigmoid_deriv(neural_net$output))
   )
@@ -69,7 +75,7 @@ grad_descent <- function(neural_net){
   deriv_weights1 <- deriv_weights1*sigmoid_deriv(neural_net$layer1)
   deriv_weights1 <- neural_net$input*deriv_weights1
   
-  # update the weights using the derivative (slope) of the loss function
+  # Weight update using derivative
   neural_net$layer_weights_1 <- neural_net$layer_weights_1 + deriv_weights1
   neural_net$layer_weights_2 <- neural_net$layer_weights_2 + deriv_weights2
   
@@ -87,14 +93,19 @@ lossData <- data.frame(epoch = 1:epoch_num, MSE = rep(0, epoch_num))
 
 ## Training Neural Net
 for (i in 1:epoch_num) {
-  neuralnet_info <- feedforward(neuralnet_info)
+  
+  # Foreward iteration
+  neuralnet_info <- forward_pass(neuralnet_info)
+  
+  # Backward iteration
   neuralnet_info <- grad_descent(neuralnet_info)
   
-  # store the result of the loss function.  We will plot this later
+  # Storing loss
   lossData$MSE[i] <- MSE(neuralnet_info)
+  
 }
 
-## Error Rate after 20 iterations
+## Error Rate after 50 iterations
 mean(round(neuralnet_info$output) == gaussian_df$resp)
 
 ## Plotting Loss
@@ -105,6 +116,7 @@ lossData %>%
   labs(x = "Epoch #", y = "MSE") +
   ggtitle("Change in Loss - Simple Neural Net") +
   theme(plot.title = element_text(hjust = 0.5))
+
   
 
 
