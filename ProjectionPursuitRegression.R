@@ -19,7 +19,7 @@ x1 = seq(0, 10, 0.01)
 x2 = seq(0, 10, 0.01)
 gv_matrix = matrix(nrow = length(x1), ncol = length(x2))
 
-# Fillign matrix
+# Filling matrix
 for (i in 1:length(x1)) {
   for (j in 1:length(x2)) {
     gv_matrix[i, j] = g_v(x1[i], x2[j])
