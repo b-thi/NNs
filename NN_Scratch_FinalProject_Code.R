@@ -2,6 +2,8 @@
 
 ### Libraries
 # none :3
+# jk, I'll use tidyverse:
+library(tidyverse)
 
 ### Setting seed
 set.seed(25)
@@ -10,6 +12,9 @@ set.seed(25)
 x <- rnorm(100)
 y <- ifelse(x >= -0.5 & x <= 0.5, 1, 0)
 gaussian_df <- sample(data.frame(rn = x, resp = y))
+
+## Poisoning the data
+#gaussian_df[sample(which(gaussian_df$resp == 1), 25),] = 0
 
 ## Looking at data set
 head(gaussian_df)
@@ -43,7 +48,7 @@ neuralnet_info <- list(
   layer_weights_2 = layer_weights_2,
   layer_bias_2 = layer_bias_2,
   y = gaussian_df$resp,
-  output = matrix(rep(0, 100), ncol = 1)
+  output = matrix(rep(0, 1000), ncol = 1)
 )
 
 ## Forward pass
@@ -118,10 +123,6 @@ for (i in 1:epoch_num) {
 mean(round(neuralnet_info$output) == gaussian_df$resp)
 
 ## Plotting Loss
-
-## I lied, one library
-library(tidyverse)
-
 lossData %>% 
   ggplot(aes(x = epoch, y = MSE)) + 
   geom_line(size = 1.25, color = "red") +
@@ -130,6 +131,24 @@ lossData %>%
   ggtitle("Change in Loss - Simple Neural Net") +
   theme(plot.title = element_text(hjust = 0.5))
 
-  
+## Making a test set
+# x <- rnorm(25)
+# y <- ifelse(x >= -0.5 & x <= 0.5, 1, 0)
+# gaussian_df_test <- sample(data.frame(rn = x, resp = y))
 
+## Making Predictions on the test set
+
+# Layer 1 activations
+# test_results <- NULL
+
+# test_results$layer1 <- c(sigmoid(gaussian_df_test$rn * neuralnet_info$layer_weights_1 + 
+#                                 neuralnet_info$layer_bias_1))
+
+# Output activations
+# test_results$output <- c(sigmoid(test_results$layer1 * neuralnet_info$layer_weights_2 + 
+#                                 neuralnet_info$layer_bias_2))
+
+# Predictions
+## Error Rate after 50 iterations
+# mean(round(test_results$output) == gaussian_df_test$resp)
 
